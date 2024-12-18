@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+int eh_palindromo(char str[]) {
+    int esquerda = 0;
+    int direita = strlen(str) - 1;
+
+    // Percorre a string comparando os caracteres, ignorando espaços
+    while (esquerda < direita) {
+        // Ignora espaços à esquerda
+        while (esquerda < direita && str[esquerda] == ' ') {
+            esquerda++;
+        }
+
+        // Ignora espaços à direita
+        while (esquerda < direita && str[direita] == ' ') {
+            direita--;
+        }
+
+        // Compara os caracteres
+        if (str[esquerda] != str[direita]) {
+            return 0; // Não é um palíndromo
+        }
+
+        // Avança os índices
+        esquerda++;
+        direita--;
+    }
+
+    return 1; // É um palíndromo
+}
+
+int main() {
+    char frase[MAX];
+
+    // Lê uma frase com espaços
+    fgets(frase, MAX, stdin);
+
+    // Remove o caractere de nova linha, se existir
+    frase[strcspn(frase, "\n")] = '\0';
+
+    if (eh_palindromo(frase)) {
+        printf("1\n");
+    } else {
+        printf("0\n");
+    }
+
+    return 0;
+}
